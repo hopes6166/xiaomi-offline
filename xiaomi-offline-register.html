@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xiaomi Fan Club Hanoi – Offline 25/04/2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Noto+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #FF6900;
+    --orange-dark: #cc5200;
+    --black: #0a0a0a;
+    --dark: #111111;
+    --dark2: #1a1a1a;
+    --gray: #2a2a2a;
+    --text: #e8e8e8;
+    --muted: #888;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 60px 24px;
+    background: var(--black);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(255,105,0,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 80% 60% at 50% 100%, rgba(255,105,0,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .grid-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,105,0,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,105,0,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    animation: gridPulse 6s ease-in-out infinite alternate;
+  }
+
+  @keyframes gridPulse {
+    from { opacity: 0.5; }
+    to   { opacity: 1; }
+  }
+
+  .badge {
+    display: inline-block;
+    border: 1px solid var(--orange);
+    color: var(--orange);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    margin-bottom: 28px;
+    animation: fadeDown 0.6s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: clamp(3rem, 10vw, 7rem);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+    animation: fadeDown 0.7s 0.1s ease both;
+  }
+
+  .hero h1 span { color: var(--orange); }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    color: var(--muted);
+    margin-top: 20px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    animation: fadeDown 0.7s 0.2s ease both;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 40px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeDown 0.7s 0.3s ease both;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .meta-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .meta-value {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0.4;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .scroll-arrow {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--orange), transparent);
+    animation: scrollDown 1.5s ease-in-out infinite;
+  }
+
+  @keyframes scrollDown {
+    0%, 100% { transform: scaleY(1); opacity: 1; }
+    50% { transform: scaleY(0.5); opacity: 0.5; }
+  }
+
+  /* ── DEVICES ── */
+  .section {
+    padding: 80px 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 48px;
+  }
+
+  .devices-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2px;
+  }
+
+  .device-card {
+    background: var(--dark2);
+    border: 1px solid var(--gray);
+    padding: 28px 20px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .device-card:hover {
+    border-color: var(--orange);
+    transform: translateY(-4px);
+  }
+
+  .device-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: var(--orange);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .device-card:hover::after { transform: scaleX(1); }
+
+  .device-icon {
+    font-size: 2rem;
+    margin-bottom: 12px;
+  }
+
+  .device-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+
+  .device-qty {
+    font-size: 0.78rem;
+    color: var(--orange);
+    letter-spacing: 1px;
+  }
+
+  /* ── AGENDA ── */
+  .agenda-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .agenda-item {
+    display: flex;
+    gap: 20px;
+    padding: 20px 24px;
+    background: var(--dark2);
+    border: 1px solid var(--gray);
+    align-items: flex-start;
+    transition: border-color 0.3s;
+  }
+
+  .agenda-item:hover { border-color: var(--orange); }
+
+  .agenda-num {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--orange);
+    opacity: 0.5;
+    min-width: 36px;
+    line-height: 1;
+  }
+
+  .agenda-text { font-size: 0.95rem; line-height: 1.6; }
+  .agenda-text strong { color: var(--white); display: block; margin-bottom: 2px; }
+  .agenda-text span { color: var(--muted); font-size: 0.85rem; }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: var(--dark2);
+    border-top: 1px solid var(--gray);
+    border-bottom: 1px solid var(--gray);
+    padding: 80px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 50% 80% at 50% 50%, rgba(255,105,0,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 12px;
+    position: relative;
+  }
+
+  .cta-title span { color: var(--orange); }
+
+  .cta-sub {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-bottom: 40px;
+    position: relative;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: var(--orange);
+    color: var(--white);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 18px 52px;
+    position: relative;
+    transition: background 0.2s, transform 0.2s;
+    clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+  }
+
+  .cta-btn:hover {
+    background: var(--orange-dark);
+    transform: scale(1.04);
+  }
+
+  .cta-note {
+    margin-top: 20px;
+    font-size: 0.8rem;
+    color: var(--muted);
+    position: relative;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 40px 24px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--muted);
+    border-top: 1px solid var(--gray);
+  }
+
+  footer strong { color: var(--orange); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .device-card:nth-child(1) { animation-delay: 0.1s; }
+  .device-card:nth-child(2) { animation-delay: 0.2s; }
+  .device-card:nth-child(3) { animation-delay: 0.3s; }
+  .device-card:nth-child(4) { animation-delay: 0.4s; }
+  .device-card:nth-child(5) { animation-delay: 0.5s; }
+
+  /* Divider */
+  .divider {
+    width: 48px;
+    height: 2px;
+    background: var(--orange);
+    margin: 0 auto 20px;
+  }
+
+  @media (max-width: 600px) {
+    .hero-meta { gap: 24px; }
+    .devices-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="grid-lines"></div>
+  <div class="badge">🔥 Xiaomi Fan Club Hanoi &nbsp;•&nbsp; Official Event</div>
+  <h1>OFFLINE<br><span>FAN MEET</span><br>2026</h1>
+  <p class="hero-sub">Trải nghiệm flagship mới nhất – Gặp gỡ cộng đồng</p>
+  <div class="hero-meta">
+    <div class="meta-item">
+      <span class="meta-label">Ngày</span>
+      <span class="meta-value">25/04/2026</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Thứ</span>
+      <span class="meta-value">Thứ Bảy</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Địa điểm</span>
+      <span class="meta-value">Hà Nội</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Số chỗ</span>
+      <span class="meta-value">Có hạn</span>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- DEVICES -->
+<section class="section">
+  <p class="section-label">Thiết bị trải nghiệm</p>
+  <h2 class="section-title">Được Xiaomi<br>Việt Nam hỗ trợ</h2>
+  <div class="devices-grid">
+    <div class="device-card">
+      <div class="device-icon">📱</div>
+      <div class="device-name">Xiaomi 17 Ultra</div>
+      <div class="device-qty">01 UNIT &mdash; FLAGSHIP ĐỈNH CAO</div>
+    </div>
+    <div class="device-card">
+      <div class="device-icon">📱</div>
+      <div class="device-name">Xiaomi 17 Standard</div>
+      <div class="device-qty">02 UNITS &mdash; FLAGSHIP TẦM TRUNG</div>
+    </div>
+    <div class="device-card">
+      <div class="device-icon">⚡</div>
+      <div class="device-name">Ultra Thin Charger</div>
+      <div class="device-qty">03 UNITS &mdash; SẠC THẾ HỆ MỚI</div>
+    </div>
+    <div class="device-card">
+      <div class="device-icon">🥽</div>
+      <div class="device-name">MIJIA Smart Glasses</div>
+      <div class="device-qty">03 UNITS &mdash; CÔNG NGHỆ TƯƠNG LAI</div>
+    </div>
+    <div class="device-card">
+      <div class="device-icon">🏷️</div>
+      <div class="device-name">Xiaomi Smart Tag</div>
+      <div class="device-qty">02 UNITS &mdash; ĐỊNH VỊ THÔNG MINH</div>
+    </div>
+  </div>
+</section>
+
+<!-- AGENDA -->
+<section class="section" style="padding-top:0">
+  <p class="section-label">Chương trình</p>
+  <h2 class="section-title">Lịch trình<br>sự kiện</h2>
+  <div class="agenda-list">
+    <div class="agenda-item">
+      <span class="agenda-num">01</span>
+      <div class="agenda-text">
+        <strong>Hands-on trải nghiệm thiết bị</strong>
+        <span>Tự tay cầm, test, so sánh tất cả sản phẩm Xiaomi được Xiaomi VN hỗ trợ</span>
+      </div>
+    </div>
+    <div class="agenda-item">
+      <span class="agenda-num">02</span>
+      <div class="agenda-text">
+        <strong>Chia sẻ Tips &amp; Tricks</strong>
+        <span>Trao đổi kinh nghiệm, thủ thuật hay từ cộng đồng người dùng Xiaomi</span>
+      </div>
+    </div>
+    <div class="agenda-item">
+      <span class="agenda-num">03</span>
+      <div class="agenda-text">
+        <strong>Mini Game &amp; Giao lưu</strong>
+        <span>Các trò chơi vui nhộn, quà tặng bất ngờ cho thành viên may mắn</span>
+      </div>
+    </div>
+    <div class="agenda-item">
+      <span class="agenda-num">04</span>
+      <div class="agenda-text">
+        <strong>Chụp ảnh &amp; Review thực tế</strong>
+        <span>Tạo content, review honest trên thiết bị flagship ngay tại sự kiện</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2 class="cta-title">Đăng ký<br><span>ngay hôm nay</span></h2>
+  <p class="cta-sub">Số lượng chỗ có hạn &mdash; Ai đăng ký trước chốt suất trước</p>
+  <a href="https://forms.gle/2o4HGDT1MkK1dw3U7" target="_blank" class="cta-btn">
+    ✦ &nbsp;ĐĂNG KÝ THAM DỰ&nbsp; ✦
+  </a>
+  <p class="cta-note">Sau khi đăng ký, ban tổ chức sẽ xác nhận qua thông tin bạn để lại</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Tổ chức bởi <strong>Xiaomi Fan Club Hanoi</strong> &nbsp;•&nbsp; Liên hệ: Minh Ho – Chủ tịch CLB</p>
+  <p style="margin-top:8px; font-size:0.72rem; opacity:0.5">#XiaomiFanClubHanoi &nbsp; #XiaomiOffline &nbsp; #Xiaomi17Ultra &nbsp; #MiCommunity</p>
+</footer>
+
+</body>
+</html>
